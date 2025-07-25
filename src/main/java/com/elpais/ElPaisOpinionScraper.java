@@ -23,12 +23,12 @@ public class ElPaisOpinionScraper {
     public static void main(String[] args) throws Exception {
         System.setProperty("webdriver.chrome.driver", "C:\\\\Selenium\\\\chromedriver-win64\\\\chromedriver-win64\\\\chromedriver.exe");
 
-        // Headless Chrome setup
+        
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
         WebDriver driver = new ChromeDriver(options);
 
-        // CSV Writers
+        
         FileWriter titleCsv = new FileWriter("titles.csv");
         titleCsv.append("Spanish Title,Translated Title\n");
 
@@ -133,7 +133,6 @@ public class ElPaisOpinionScraper {
             }
 
         } finally {
-            // Close resources
             titleCsv.flush();
             titleCsv.close();
             wordCsv.flush();
@@ -149,7 +148,6 @@ public class ElPaisOpinionScraper {
         String json = new String(response.readAllBytes());
         response.close();
 
-        // Parse translated text
         if (json.startsWith("[[[")) {
             int firstQuote = json.indexOf('"');
             int secondQuote = json.indexOf('"', firstQuote + 1);
