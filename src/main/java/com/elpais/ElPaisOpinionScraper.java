@@ -81,8 +81,8 @@ public class ElPaisOpinionScraper {
                         .map(org.jsoup.nodes.Element::text)
                         .collect(Collectors.joining(" "));
 
-                System.out.println("\n📰 Title (Spanish): " + title);
-                System.out.println("📄 Content: " + content.substring(0, Math.min(300, content.length())) + "...");
+                System.out.println("\n Title (Spanish): " + title);
+                System.out.println(" Content: " + content.substring(0, Math.min(300, content.length())) + "...");
 
                 // Save image
                 Elements imgEl = doc.select("figure img");
@@ -93,9 +93,9 @@ public class ElPaisOpinionScraper {
                             String safeTitle = title.replaceAll("[^a-zA-Z0-9]", "_");
                             String name = safeTitle.substring(0, Math.min(20, safeTitle.length())) + ".jpg";
                             Files.copy(in, Paths.get(name), StandardCopyOption.REPLACE_EXISTING);
-                            System.out.println("🖼️ Image saved as: " + name);
+                            System.out.println(" Image saved as: " + name);
                         } catch (Exception e) {
-                            System.out.println("⚠️ Failed to download image: " + e.getMessage());
+                            System.out.println(" Failed to download image: " + e.getMessage());
                         }
                     }
                 }
@@ -107,7 +107,7 @@ public class ElPaisOpinionScraper {
                 // Write to title CSV
                 titleCsv.append("\"" + title.replace("\"", "\"\"") + "\",\"" + translated.replace("\"", "\"\"") + "\"\n");
 
-                System.out.println("🌍 Translated Title: " + translated);
+                System.out.println("Translated Title: " + translated);
             }
 
             // Analyze repeated words
@@ -120,7 +120,7 @@ public class ElPaisOpinionScraper {
                     .filter(e -> e.getValue() > 2)
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-            System.out.println("\n🔁 Repeated Words (appearing > 2 times):");
+            System.out.println("\n Repeated Words (appearing > 2 times):");
 
             if (repeatedWords.isEmpty()) {
                 wordCsv.append("Not available,0\n");
